@@ -1,0 +1,78 @@
+image: registry.gitlab.com/hackins-projects/io-tasks:latest
+
+.before_build_script:
+  before_script:
+    - echo "$ENV_CONTENT" >> .env
+
+cache:
+  untracked: true
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+    - bootstrap/cache/
+    - node_modules/
+
+#services:
+#  - mysql:8.0
+
+variables:
+  TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  CONTAINER_NAME: "io_tasks_app"
+  ENV_CONTENT: $PROD_ENV
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  # mysql service credentials if using gitlab ci mysql for shared runner
+  # otherwise set correct credentials for a private runner
+  MYSQL_DATABASE: homestead
+  MYSQL_ROOT_PASSWORD: secret
+
+stages:
+  - test
+  - build
+  - deploy
+
+unit_test:
+  stage: test
+  tags:
+    - test_app
+  script:
+    - cp .env.example .env
+    - composer install
+    - php artisan key:generate
+    - php artisan migrate:fresh --force
+    - php artisan db:seed
+    - vendor/bin/phpunit
+
+build_image:
+  extends: .before_build_script
+  image: docker:latest
+  stage: build
+  tags:
+    - build_app
+  services:
+    - docker:19.03.0-dind
+  script:
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+
+deploy_production:
+  image: alpine:latest
+  stage: deploy
+  tags:
+    - prod_deployment
+  script:
+    - chmod og= $SSH_PRIVATE_KEY
+    - apk update && apk add openssh-client
+    - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
+    - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f $CONTAINER_NAME || true"
+    - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 8080:8090 --network=host --name $CONTAINER_NAME $TAG_COMMIT"
+  environment:
+    name: production
+    url: http://192.168.7.237:8080
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
