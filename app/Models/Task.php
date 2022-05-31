@@ -11,6 +11,10 @@ class Task extends Model
 
     protected $guarded = [];
 
+    public const availableRelationships = [
+        'user'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

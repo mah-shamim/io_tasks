@@ -17,6 +17,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'version' => '1.0.1',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -195,6 +197,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Custom Service Providers
+         */
+        App\Providers\RepositoryServiceProvider::class,
     ],
 
     /*

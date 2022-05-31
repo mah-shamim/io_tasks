@@ -38,14 +38,14 @@ export const useTasksStore = defineStore('tasks', {
       })
     },
 
-    fetchSingleTask(id: number): Promise<any> | null {
+    fetchSingleTask(id: number): Promise<any> {
       this.loading = true;
       return new Promise((resolve, reject) => {
         api
           .get('tasks/' + id)
           .then((response) => {
 
-            this.singleTask = response.data.data
+            this.singleTask = response.data
             this.loading = false;
 
             resolve(response)

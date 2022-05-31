@@ -22,7 +22,7 @@ export const useProfileStore = defineStore('profile', {
           .get('auth/user', { params: payload })
           .then((response) => {
             // update the current user state
-            this.currentUser = response.data.data
+            this.currentUser = response.data.user
 
             resolve(response)
           })
@@ -46,6 +46,10 @@ export const useProfileStore = defineStore('profile', {
           })
       })
     },
+
+    setCurrentUser(payload: UserInterface) {
+      this.currentUser = payload
+    }
   }
 })
 

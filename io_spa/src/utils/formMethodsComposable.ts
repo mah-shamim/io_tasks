@@ -1,5 +1,5 @@
-import {isEmailValid} from 'src/utils/utils';
-import {ref} from 'vue';
+import { isEmailValid } from 'src/utils/utils';
+import { ref } from 'vue';
 
 export default function formMethods() {
   const isRequired = (val: string) => (val && val.length > 0) || 'Required'

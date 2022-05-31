@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Utils\Constants;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,8 +44,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public const availableRelationships = [
+        'tasks'
+    ];
+
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return $value ? asset(Constants::PUBLIC_AVATAR_PATH . '/' . $value) : asset(Constants::PUBLIC_AVATAR_PATH . '/default.png');
     }
 }

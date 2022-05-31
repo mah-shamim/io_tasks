@@ -1,12 +1,12 @@
 import authConfigs from 'src/utils/authConfigs';
-import { UserModel } from 'src/models/user';
+import { UserInterface} from 'src/interfaces/user.interface';
 
 export default class {
-  static storeUserData(userData: UserModel) {
+  static storeUserData(userData: UserInterface) {
     localStorage.setItem(authConfigs.storageUserDataKeyName, JSON.stringify(userData))
   }
 
-  static getUserData(): UserModel | null {
+  static getUserData(): UserInterface | null {
     const userString = localStorage.getItem(authConfigs.storageUserDataKeyName)
 
     if (userString) {
@@ -24,14 +24,14 @@ export default class {
   }
 
   static storeRefreshToken(token: string) {
-    sessionStorage.setItem(authConfigs.storageRefreshTokenKeyName, token)
+    localStorage.setItem(authConfigs.storageRefreshTokenKeyName, token)
   }
 
   static getRefreshToken(): string | null {
-    return sessionStorage.getItem(authConfigs.storageRefreshTokenKeyName)
+    return localStorage.getItem(authConfigs.storageRefreshTokenKeyName)
   }
 
   static clearLocalStorage() {
-    sessionStorage.clear()
+    localStorage.clear()
   }
 }

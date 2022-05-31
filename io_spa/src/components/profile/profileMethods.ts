@@ -1,5 +1,6 @@
 import {computed} from 'vue'
 import {useProfileStore} from 'stores/users/profile';
+import {UserInterface} from 'src/interfaces/user.interface';
 
 export default function profileMethods() {
   // IMPORTS
@@ -15,10 +16,12 @@ export default function profileMethods() {
   // METHODS
   const fetchProfile = () => profileStore.fetchCurrentUser({});
   const logoutUser = () => profileStore.logoutUser({});
+  const setProfileData = (data: UserInterface) => profileStore.setCurrentUser(data);
 
   return {
     profileData,
     fetchProfile,
     logoutUser,
+    setProfileData
   }
 }
