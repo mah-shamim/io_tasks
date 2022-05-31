@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', [HomeController::class, 'testView'])->name('testView');
 
 Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*')->name('spa_home');
+
+Route::get('/login', [HomeController::class, 'index'])->name('login');

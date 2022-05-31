@@ -102,9 +102,11 @@ export const formatNumber = (value: number) => {
 
 export const headersToSkip = [
   'id',
-  'created_at',
-  'updated_at',
+  // 'created_at',
+  // 'updated_at',
   'user_id',
+  'relationships',
+  'status',
 ]
 
 export const createHeaderObjectArray = function (

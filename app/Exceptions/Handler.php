@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +51,19 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * We can alter the unauthenticated error message here
+     *
+     * @param Request $request
+     * @param AuthenticationException $exception
+     * @return JsonResponse|RedirectResponse|Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception): JsonResponse|Response|RedirectResponse
+    {
+        return $request->expectsJson()
+            ? response()->json(['message' => 'Authentication error! Please login to use this service'], 401)
+            : redirect()->guest(route('login'));
     }
 }
