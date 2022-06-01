@@ -43,6 +43,10 @@ unit_test:
     - php artisan migrate:fresh --force
     - php artisan db:seed
     - vendor/bin/phpunit
+    # test frontend
+    #- cd io_spa
+    #- npm install
+    #- npm run test:unit
 
 build_image:
   extends: .before_build_script
