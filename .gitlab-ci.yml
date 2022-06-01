@@ -52,8 +52,8 @@ build_image:
   extends: .before_build_script
   image: docker:latest
   stage: build
-  tags:
-    - build_app
+  #tags:
+  #  - build_app
   services:
     - docker:19.03.0-dind
   script:
@@ -65,8 +65,8 @@ build_image:
 deploy_production:
   image: alpine:latest
   stage: deploy
-  tags:
-    - prod_deployment
+  #tags:
+   # - prod_deployment
   script:
     - chmod og= $SSH_PRIVATE_KEY
     - apk update && apk add openssh-client
