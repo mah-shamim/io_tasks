@@ -44,7 +44,7 @@ unit_test:
     - php artisan db:seed
     - vendor/bin/phpunit
     # test frontend
-    - cd io_spa
+    - cd io_spa/
     - npm install
     - npm run test:unit
 
