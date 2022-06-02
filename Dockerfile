@@ -73,7 +73,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # laravel octane will launch on this port
 EXPOSE 8050
 
-# start up scripts
+# start up scripts`
 COPY launch.sh /usr/local/bin/launch
 RUN chmod u+x /usr/local/bin/launch
 CMD [ "/usr/local/bin/launch" ]
