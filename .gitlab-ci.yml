@@ -34,8 +34,8 @@ stages:
 
 unit_test:
   stage: test
-  tags:
-    - test_app
+  #tags:
+   # - test_app
   script:
     - cp .env.example .env
     - composer install
