@@ -9,4 +9,4 @@ chmod -R 775 /var/www/html/public/uploads
 php artisan storage:link
 php artisan migrate --force --no-interaction
 php artisan optimize:clear
-php artisan octane:start --port=8050
+php artisan octane:start --host=0.0.0.0 --port=8050
