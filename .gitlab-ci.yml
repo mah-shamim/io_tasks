@@ -45,8 +45,8 @@ unit_test:
     - vendor/bin/phpunit
     # test frontend
     - cd io_spa/
-    - ls
-    - echo "install npm"
+    - quasar info
+    - npm -v
     - npm install
     - npm run test:unit
 
