@@ -12,8 +12,8 @@ cache:
     - bootstrap/cache/
     - node_modules/
 
-#services:
-#  - mysql:8.0
+services:
+  - mysql:8.0
 
 variables:
   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
@@ -26,6 +26,10 @@ variables:
   # otherwise set correct credentials for a private runner
   MYSQL_DATABASE: homestead
   MYSQL_ROOT_PASSWORD: secret
+  DB_DATABASE: homestead
+  DB_PASSWORD: secret
+  DB_HOST: mysql
+  DB_USERNAME: root
 
 stages:
   - test
@@ -35,7 +39,7 @@ stages:
 unit_test:
   stage: test
   #tags:
-   # - test_app
+  #  - test_app
   script:
     - cp .env.example .env
     - composer install
