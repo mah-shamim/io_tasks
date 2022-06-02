@@ -45,8 +45,8 @@ unit_test:
     - vendor/bin/phpunit
     # test frontend
     - cd io_spa/
-    - npm install
-    - npm run test:unit
+    - call npm install
+    - call npm run test:unit
 
 build_image:
   extends: .before_build_script
