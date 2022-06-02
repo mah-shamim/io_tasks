@@ -86,4 +86,4 @@ deploy_production:
     url: http://192.168.7.237:8080
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
+      #when: manual

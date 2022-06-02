@@ -28,7 +28,7 @@ npm run format
 
 ### Runtests
 ```bash
-npm run test
+npm run test:unit
 ```
 
 ### Build the app for production

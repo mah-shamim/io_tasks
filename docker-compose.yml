@@ -1,0 +1,54 @@
+version: '3.5'
+services:
+    # DB Service
+    db:
+        image: mysql:8.0
+        container_name: tasks_app_db
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "33066:3306"
+        environment:
+            MYSQL_DATABASE: "tasks_db"
+            MYSQL_ROOT_PASSWORD: "Jay#254701437909"
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - dbdata:/var/lib/mysql/
+            - ./compose_configs/mysql/my.cnf:/etc/mysql/my.cnf
+            - ./compose_configs/mysql-files:/var/lib/mysql-files
+        networks:
+            - app-network
+
+    # APP Service
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: registry.gitlab.com/hackins-projects/io-tasks:latest
+        container_name: tasks_app_code
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8050:8050"
+        depends_on:
+            - db
+        environment:
+            SERVICE_NAME: tasks_app_code
+            SERVICE_TAGS: dev
+        working_dir: /var/www/html/
+        volumes:
+            - ./:/var/www/html/
+            - ./compose_configs/php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+        networks:
+            - app-network
+
+# Docker Networks
+networks:
+    app-network:
+        name: app-network
+        driver: bridge
+#Volumes
+volumes:
+    dbdata:
+        driver: local
