@@ -42,6 +42,7 @@ unit_test:
   #  - test_app
   script:
     - cp .env.example .env
+    - composer clearcache
     - composer install
     - php artisan key:generate
     - php artisan migrate:fresh --force
