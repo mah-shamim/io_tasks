@@ -5,13 +5,14 @@ API for IO tasks made with **Laravel** (v. 9). Making use of Laravel Sanctum and
 Frontend made with **Vue** (v. 3) - mostly TypeScript and some JavaScript, and **Quasar** Components (v. 2). 
 Making use of Vue Pinia for State Management. 
 
-Includes a simple Dockerfile and CI/CD pipeline.
+Includes a simple Dockerfile and Gitlab CI/CD pipeline.
 
 ### CI Deployment Info
 I have included a Dockerfile and a Gitlab CI yaml file 
 that can run the tests, build the project and deploy to a test server.
-The base image for the CI runner `registry.gitlab.com/hackins-projects/io-tasks:latest` 
-is built from this project's `Dockerfile` and pushed to GitLab's registry. 
+The base image for the CI runner is available on [docker hub](https://hub.docker.com/r/hackins/php8-1-node-laravel-quasar)
+`hackins/php8-1-node-laravel-quasar:latest`. 
+In the image, I included PHP 8.1, Node.js & NPM latest, packages to run a laravel 9 API, and Quasar cli for building the SPA assets.
 
 This runner pushes the build image and runs it on the server using laravel Octane. 
 It uses the host's MySQL database (this allows room to have mysql running anywhere for scalability)
@@ -35,12 +36,12 @@ Hence, just one server to do the work.
 Pull the project from the repo to your local environment.
 
 ```bash
-git clone https://gitlab.com/hackins-projects/io-tasks.git
+git clone https://github.com/jaymoh/io_tasks.git
 ```
 Change into the directory.
 
 ```bash
-cd io-tasks
+cd io_tasks
 ```
 Copy **.env.example** to **.env** and configure the database credentials as per your environment.
 

@@ -1,4 +1,4 @@
-image: registry.gitlab.com/hackins-projects/io-tasks:latest
+image: hackins/php8-1-node-laravel-quasar:latest
 
 .before_build_script:
   before_script:

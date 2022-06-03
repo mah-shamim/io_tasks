@@ -25,7 +25,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: registry.gitlab.com/hackins-projects/io-tasks:latest
+        image: hackins/php8-1-node-laravel-quasar:latest
         container_name: tasks_app_code
         restart: unless-stopped
         tty: true
