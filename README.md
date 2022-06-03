@@ -1,8 +1,11 @@
 ## About IO Tasks
 
-API for IO tasks made with Laravel (v. 9).
+API for IO tasks made with **Laravel** (v. 9). Making use of Laravel Sanctum and Repository pattern.
 
-Frontend made with Vue (v. 3) - mostly TypeScript and some JavaScript, and Quasar Components (v. 2).
+Frontend made with **Vue** (v. 3) - mostly TypeScript and some JavaScript, and **Quasar** Components (v. 2). 
+Making use of Vue Pinia for State Management. 
+
+Includes a simple Dockerfile and CI/CD pipeline.
 
 ### CI Deployment Info
 I have included a Dockerfile and a Gitlab CI yaml file 
@@ -28,7 +31,7 @@ However, I have set up an instruction in `webpack.mix.js` to copy the compiled v
 This allows laravel to serve the Vue SPA on it's home route, then the Vue's routing will pick up for front-end navigation.
 Hence, just one server to do the work. 
 
-### Manual Setup on local machine/environment
+## Manual Setup on local machine/environment
 Pull the project from the repo to your local environment.
 
 ```bash
@@ -65,22 +68,24 @@ Run the database seeds.
 php artisan db:seed
 ```
 
-#### Build the Vue SPA
-Change directory to the `io_spa` directory on a different terminal.
-
-```bash
-cd io_spa
-```
-Install npm dependencies.
+### Build the Vue SPA
+First, install npm dependencies for laravel.
 
 ```bash
 npm install
 ```
+
 Install quasar cli.
 
 ```bash
 npm install -g @quasar/cli
 ```
+Install the npm dependencies for the SPA.
+
+```bash
+npm run install-spa
+```
+
 These two lines are crucial depending on where the laravel API that we have set up above is running.
 `LOCAL_API_URL=http://127.0.0.1:8050/api/`
 
@@ -96,20 +101,10 @@ change the `PRODUCTION_API_URL` variable to match the host on which laravel is r
 
 For instance, in the **Docker Compose** section below, the containers may be running locally, change the `PRODUCTION_API_URL` to `http://127.0.0.1:8050/api/`
 
-Build the Vue SPA.
+Build the Vue SPA and copy the files to the laravel public directory.
 
 ```bash
-npm run build
-```
-Navigate back to the root directory.
-
-```bash
-cd ..
-```
-Run npm build to bring the Vue files to be server by laravel.
-
-```bash
-npm run production
+npm run build-spa
 ```
 
 Now serve the app and laravel will serve the Vue SPA on its homepage webroot.
