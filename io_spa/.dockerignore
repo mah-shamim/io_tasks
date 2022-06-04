@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+README.md
+.quasar
+dist
+node_modules
+Dockerfile

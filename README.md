@@ -210,5 +210,3 @@ It uses the host's MySQL database (this allows room to have mysql running anywhe
 I have also set up a NGINX proxy on the host machine to point to the laravel octane exposed port.
 The `launch.sh` has the deployment instructions for when the container is started.
 You can make changes, and push and the CI runner will pick them up and start the pipeline.
-I have set the deployment stage to run automatically, since this is just for testing purposes.
-The changes can be seen on this url: `https://tasks.hackinroms.com/`

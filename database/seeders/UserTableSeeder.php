@@ -20,14 +20,14 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@tasks.com',
+            'email' => 'admin@tasks.test',
             'password' => bcrypt('123secret'),
             'email_verified_at' => now(),
         ]);
 
         User::create([
             'name' => 'User',
-            'email' => 'user@tasks.com',
+            'email' => 'user@tasks.test',
             'password' => bcrypt('123secret'),
             'email_verified_at' => now(),
         ]);

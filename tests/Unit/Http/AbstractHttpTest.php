@@ -11,14 +11,6 @@ use Tests\TestCase;
 
 abstract class AbstractHttpTest extends TestCase
 {
-    use RefreshDatabase;
-
-    /**
-     * Run a specific seeder before each test.
-     *
-     * @var string
-     */
-    protected $seeder = TestDatabaseSeeder::class;
 
     protected function dumpResponseAsVarExport($response)
     {
@@ -37,21 +29,7 @@ abstract class AbstractHttpTest extends TestCase
         $this->assertTrue(count($data) === $length);
     }
 
-    protected function actingAsAdminUser()
-    {
-        return $this->actingAs(User::whereHas('roles', function (Builder $q) {
-            $q->where('name', 'admin');
-        })->first(), 'api');
-    }
-
-    protected function actingAsEditorUser()
-    {
-        return $this->actingAs(User::whereHas('roles', function (Builder $q) {
-            $q->where('name', 'editor');
-        })->first(), 'api');
-    }
-
-    protected function actingAsNormalUser($userId)
+    protected function actingAsUser($userId)
     {
         return $this->actingAs(User::find($userId), 'api');
     }

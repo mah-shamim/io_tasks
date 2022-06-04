@@ -1,5 +1,5 @@
 # Set the base image for subsequent instructions
-FROM hackins/php8.1-laravel:latest
+FROM registry.gitlab.com/hackins-projects/io-tasks:latest
 
 # Copy composer.lock and composer.json into the working directory
 COPY composer.lock composer.json /var/www/html/

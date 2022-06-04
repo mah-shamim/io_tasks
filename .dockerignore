@@ -1,0 +1,13 @@
+node_modules
+vendor
+npm-debug.log
+Dockerfile
+.dockerignore
+.phpunit.result.cache
+README.md
+.git
+io_spa/.quasar
+io_spa/dist
+io_spa/node_modules
+io_spa/Dockerfile
+.idea

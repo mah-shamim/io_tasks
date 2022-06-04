@@ -49,10 +49,9 @@ unit_test:
     - php artisan db:seed
     - vendor/bin/phpunit
     # test frontend
-    - cd io_spa/
     - quasar info
-    - npm install
-    - npm run test:unit
+    - npm run install-spa
+    - npm run test-spa
 
 build_image:
   extends: .before_build_script
@@ -67,6 +66,9 @@ build_image:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_COMMIT
     - docker push $TAG_LATEST
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
 
 deploy_production:
   image: alpine:latest
@@ -86,4 +88,4 @@ deploy_production:
     url: http://192.168.7.237:8080
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      #when: manual
+      when: manual
