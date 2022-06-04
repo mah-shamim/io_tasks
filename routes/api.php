@@ -28,6 +28,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('auth/user', [AuthController::class, 'getCurrentUser'])->name('auth.current.user');
     Route::get('auth/logout', [AuthController::class, 'userLogout'])->name('auth.user.logout');
 
-    Route::apiResource('/tasks', TaskController::class);
+    Route::apiResource('/tasks', TaskController::class)->names('tasks');
     Route::apiResource('/users', UserController::class);
 });

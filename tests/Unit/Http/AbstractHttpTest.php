@@ -31,7 +31,7 @@ abstract class AbstractHttpTest extends TestCase
 
     protected function actingAsUser($userId)
     {
-        return $this->actingAs(User::find($userId), 'api');
+        return $this->actingAs(User::find($userId), 'web');
     }
 
     protected function getNormalUser($userId)
