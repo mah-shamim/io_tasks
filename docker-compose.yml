@@ -3,11 +3,11 @@ services:
     # DB Service
     db:
         image: mysql:8.0
-        container_name: tasks_app_db
+        container_name: tasks_db
         restart: unless-stopped
         tty: true
         ports:
-            - "33066:3306"
+            - "3306"
         environment:
             MYSQL_DATABASE: "tasks_db"
             MYSQL_ROOT_PASSWORD: "Jay#254701437909"
@@ -21,16 +21,16 @@ services:
             - app-network
 
     # APP Service
-    app:
+    api:
         build:
             context: .
             dockerfile: Dockerfile
-        image: hackins/php8-1-node-laravel-quasar:latest
-        container_name: tasks_app_code
+        #image: php:8.1
+        container_name: tasks_api
         restart: unless-stopped
         tty: true
         ports:
-            - "8050:8050"
+            - "8051:8051"
         depends_on:
             - db
         environment:
@@ -40,6 +40,28 @@ services:
         volumes:
             - ./:/var/www/html/
             - ./compose_configs/php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+            - /var/www/html/vendor
+            - /var/www/html/node_modules
+        networks:
+            - app-network
+
+        # SPA Service
+    frontend:
+        build:
+            context: ./io_spa
+            dockerfile: Dockerfile
+        image: node:latest
+        container_name: tasks_frontend
+        restart: unless-stopped
+        tty: true
+        depends_on:
+            - api
+        ports:
+            - "8050:8050"
+        volumes:
+            - ./io_spa:/var/www/html/
+            - /var/www/html/node_modules
+            - /var/www/html/dist/spa
         networks:
             - app-network
 

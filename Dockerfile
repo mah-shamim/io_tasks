@@ -1,5 +1,8 @@
 # Set the base image for subsequent instructions
-FROM hackins/php8-1-node-laravel-quasar:latest
+FROM hackins/php8.1-laravel:latest
+
+# Copy composer.lock and composer.json into the working directory
+COPY composer.lock composer.json /var/www/html/
 
 # set the project directory
 WORKDIR /var/www/html
@@ -10,20 +13,11 @@ COPY . /var/www/html
 # Install composer packages for laravel
 RUN composer install
 
-# cd into io_spa frontend of the app and build it for production
-RUN cd /var/www/html/io_spa && npm install && npm run build
-
-# Navigate back to the project root directory
-# Set permissions for the public directory
-# Set permissions for the resources/views directory
-# and npm build for production
-RUN cd /var/www/html && chmod -R 0777 public && chmod -R 0777 resources/views && npm install && npm run production
-
 # Assigning ownership of the web root to www-data
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public
 
 # Laravel octane will launch on this port
-EXPOSE 8050
+EXPOSE 8051
 
 # start up scripts`
 COPY launch.sh /usr/local/bin/launch

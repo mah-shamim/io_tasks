@@ -8,8 +8,9 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
+        "install-spa": "cd io_spa && npm install && cd ..",
         "build-spa": "cd io_spa && npm run build && cd .. && npm run production",
-        "install-spa": "cd io_spa && npm install && cd .."
+        "test-spa": "cd io_spa && npm run test:unit && cd .."
     },
     "devDependencies": {
         "axios": "^0.25",
