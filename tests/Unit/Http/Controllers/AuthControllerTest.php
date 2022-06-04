@@ -81,4 +81,64 @@ class AuthControllerTest extends AbstractHttpTest
         $response->assertStatus(200)
             ->assertJsonStructure(require __DIR__ . '/responses/auth/auth-login-success-response.php');
     }
+
+    /**
+     * test user register Empty Fields
+     */
+    public function testUserRegisterEmptyFields()
+    {
+        $requestBody = [];
+
+        $route = route('auth.register');
+
+        $response = $this
+            ->json('POST', $route, $requestBody);
+
+        $response
+            ->assertStatus(422)
+            ->assertJson(require __DIR__ . '/responses/auth/auth-register-invalid-response.php');
+    }
+
+    /**
+     * test user register successful
+     */
+    public function testUserRegisterSuccess()
+    {
+        $requestBody = [
+            'name' => 'James Hackins',
+            'email' => 'hackins@tasks.test',
+            'password' => '123secret',
+            'password_confirmation' => '123secret'
+        ];
+
+        $route = route('auth.register');
+
+        $response = $this
+            ->json('POST', $route, $requestBody);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure(require __DIR__ . '/responses/auth/auth-login-success-response.php');
+    }
+
+    /**
+     * test email taken error response
+     */
+    public function testEmailTaken()
+    {
+        $requestBody = [
+            'name' => 'System Admin',
+            'email' => 'admin@tasks.test',
+            'password' => '123Secret',
+            'password_confirmation' => '123Secret'
+        ];
+
+        $route = route('auth.register');
+
+        $response = $this
+            ->json('POST', $route, $requestBody);
+
+        $response
+            ->assertStatus(422)
+            ->assertJson(require __DIR__ . '/responses/auth/auth-register-email-taken-response.php');
+    }
 }
