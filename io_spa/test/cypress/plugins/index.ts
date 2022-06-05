@@ -15,6 +15,8 @@
 import { injectDevServer } from '@quasar/quasar-app-extension-testing-e2e-cypress/cct-dev-server';
 import cypressCodeCoverageTask from '@cypress/code-coverage/task';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const pluginConfig: Cypress.PluginConfig = async (on, config) => {
   cypressCodeCoverageTask(on, config);
   // Enable component testing, you can safely remove this

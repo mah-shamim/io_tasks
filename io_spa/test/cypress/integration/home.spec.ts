@@ -4,16 +4,16 @@
 // ** This file is an example of how to write Cypress tests, you can safely delete it **
 
 // This test will pass when run against a clean Quasar project
-describe('Landing', () => {
+/*describe('Landing', () => {
   beforeEach(() => {
     cy.visit('/');
   });
   it('.should() - assert that <title> is correct', () => {
-    cy.title().should('include', 'Quasar');
+    cy.title().should('include', 'IO Tasks');
     cy.get('li').first().click();
     cy.contains('Clicks on todos: 1').should('exist');
   });
-});
+});*/
 
 // ** The following code is an example to show you how to write some tests for your home page **
 //

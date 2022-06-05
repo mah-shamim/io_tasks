@@ -117,6 +117,7 @@ Because I set this in the frontend.
 php artisan serve --port=8051
 ```
 
+
 ## Using Docker Compose
 You should have Docker and Docker Compose installed on your machine.
 
@@ -159,7 +160,7 @@ docker-compose up -d
 
 Next, you need to create a user and password for the laravel app. 
 Since we are using volumes, the user and password creation process is only done once.  
-Start an interactive shell in the `db` service container:
+Start an interactive shell in the `db` service container: 
 
 ```bash
 docker-compose exec db bash
@@ -192,6 +193,12 @@ Run migrations and seeds:
 ```bash
 php artisan migrate --force --no-interaction
 php artisan db:seed --force --no-interaction
+```
+
+You can run tests within the `api` service: 
+
+```bash
+php artisan test
 ```
 
 The app should be accessible on port 8050. Access it at `http://127.0.0.1:8050/`.

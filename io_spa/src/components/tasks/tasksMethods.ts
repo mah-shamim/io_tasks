@@ -1,5 +1,5 @@
 import {ref, computed, reactive, SetupContext} from 'vue';
-import {useTasksStore} from 'stores/tasks/tasks';
+import {useTasksStore} from 'src/stores/tasks/tasks';
 import {useQuasar} from 'quasar';
 import {createHeaderObjectArray, showMissingFieldsErrors, showNotification} from 'src/utils/utils';
 import {TaskInterface} from 'src/interfaces/task.interface';

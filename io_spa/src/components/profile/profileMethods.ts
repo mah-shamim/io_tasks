@@ -1,5 +1,5 @@
 import {computed} from 'vue'
-import {useProfileStore} from 'stores/users/profile';
+import { useProfileStore } from 'src/stores/users/profile';
 import {UserInterface} from 'src/interfaces/user.interface';
 
 export default function profileMethods() {
