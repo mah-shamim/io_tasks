@@ -81,7 +81,7 @@ class TaskController extends AbstractController
         $task = $this->taskRepository->updateTask($id, request()->user()->id, $data);
 
         if (!$task) {
-            throw new UnprocessableEntityHttpException('Task not found');
+            throw new NotFoundHttpException('Task not found');
         }
 
         return new TaskResource($task);
