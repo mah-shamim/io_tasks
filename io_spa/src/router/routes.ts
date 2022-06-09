@@ -17,6 +17,13 @@ const routes: RouteRecordRaw[] = [
     children: [...auth_routes],
   },
 
+  {
+    path: '/500',
+    meta: { requiresAuth: false, title: 'IO Tasks | 500' },
+    name: 'Error500',
+    component: () => import('pages/errors/Error500.vue'),
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {

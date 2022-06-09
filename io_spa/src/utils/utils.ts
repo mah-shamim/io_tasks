@@ -35,7 +35,7 @@ export const showSuccessNotification = function ($q: typeof $qC, message = 'Succ
   })
 }
 
-const prepareErrorMessage = function (
+export const prepareErrorMessage = function (
   error: any | string,
   message = 'Sorry! An error occurred, please try again shortly'
 ) {

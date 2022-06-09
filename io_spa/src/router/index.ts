@@ -1,5 +1,6 @@
-import { route } from 'quasar/wrappers';
-import { isUserLoggedIn} from 'src/utils/utils';
+import {route} from 'quasar/wrappers';
+import {Notify} from 'quasar';
+import {isUserLoggedIn, prepareErrorMessage, showErrorNotification} from 'src/utils/utils';
 import profileMethods from 'components/profile/profileMethods';
 import {
   createMemoryHistory,
@@ -25,7 +26,7 @@ export default route(function (/* { store, ssrContext } */) {
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
   const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+    scrollBehavior: () => ({left: 0, top: 0}),
     routes,
 
     // Leave this as is and make changes in quasar.conf.js instead!
@@ -39,11 +40,20 @@ export default route(function (/* { store, ssrContext } */) {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Router.beforeEach(async (to, from, next) => {
-    const { profileData, fetchProfile } = profileMethods()
+    const {profileData, fetchProfile} = profileMethods()
 
     if (isUserLoggedIn() && !profileData.value.email) {
       // fetch user data and update state on application reload
-      await fetchProfile()?.then(() => {/* do nothing */})
+      await fetchProfile()?.then(() => {/* do nothing */
+      })
+        .catch((error) => {
+          const message = prepareErrorMessage(error)
+          Notify.create({
+            type: 'negative',
+            message,
+            position: 'top-right',
+          })
+        })
     }
 
     const redirectLoggedIn = to.meta.redirectIfLoggedIn || false
